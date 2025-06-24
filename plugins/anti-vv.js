@@ -2,22 +2,22 @@ const { malvin } = require("../malvin");
 
 malvin({
   pattern: "vv",
-  alias: ["viewonce", 'retrive'],
+  alias: ["viewonce", "retrive"],
   react: '🐳',
-  desc: "Owner Only - retrieve quoted message back to user",
-  category: "owner",
+  desc: "خاص بالمالك - استرجاع رسالة مشاهدة مرة واحدة",
+  category: "المالك",
   filename: __filename
 }, async (client, message, match, { from, isCreator }) => {
   try {
     if (!isCreator) {
       return await client.sendMessage(from, {
-        text: "*📛 This is an owner command.*"
+        text: "📛 *هذا الأمر خاص بالمالك فقط!*"
       }, { quoted: message });
     }
 
     if (!match.quoted) {
       return await client.sendMessage(from, {
-        text: "*🍁 Please reply to a view once message!*"
+        text: "🍁 *يرجى الرد على رسالة مشاهدة لمرة واحدة لاسترجاعها!*"
       }, { quoted: message });
     }
 
@@ -30,14 +30,14 @@ malvin({
       case "imageMessage":
         messageContent = {
           image: buffer,
-          caption: match.quoted.text || '',
+          caption: (match.quoted.text || '') + "\n\n🔓 تم الاسترجاع بواسطة *طرزان الواقدي*",
           mimetype: match.quoted.mimetype || "image/jpeg"
         };
         break;
       case "videoMessage":
         messageContent = {
           video: buffer,
-          caption: match.quoted.text || '',
+          caption: (match.quoted.text || '') + "\n\n🔓 تم الاسترجاع بواسطة *طرزان الواقدي*",
           mimetype: match.quoted.mimetype || "video/mp4"
         };
         break;
@@ -50,7 +50,7 @@ malvin({
         break;
       default:
         return await client.sendMessage(from, {
-          text: "❌ Only image, video, and audio messages are supported"
+          text: "❌ *الأنواع المدعومة فقط: صورة، فيديو، صوت*"
         }, { quoted: message });
     }
 
@@ -58,7 +58,7 @@ malvin({
   } catch (error) {
     console.error("vv Error:", error);
     await client.sendMessage(from, {
-      text: "❌ Error fetching vv message:\n" + error.message
+      text: "❌ *حدث خطأ أثناء الاسترجاع:*\n" + error.message
     }, { quoted: message });
   }
 });
