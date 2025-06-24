@@ -6,56 +6,73 @@ const util = require("util");
 malvin({
     pattern: "vv3",
     alias: ['retrive', '🔥'],
-    desc: "Fetch and resend a ViewOnce message content (image/video).",
-    category: "misc",
-    use: '<query>',
+    desc: "استرجاع رسالة مشاهدة لمرة واحدة (صورة / فيديو / صوت).",
+    category: "متنوعة",
+    use: '<الرد على الرسالة>',
     filename: __filename
 },
 async (conn, mek, m, { from, reply }) => {
     try {
-        const quotedMessage = m.msg.contextInfo.quotedMessage; // Get quoted message
+        const quotedMessage = m.msg.contextInfo.quotedMessage; // الرسالة المقتبسة
 
         if (quotedMessage && quotedMessage.viewOnceMessageV2) {
             const quot = quotedMessage.viewOnceMessageV2;
+
             if (quot.message.imageMessage) {
-                let cap = quot.message.imageMessage.caption;
+                let cap = quot.message.imageMessage.caption || '';
                 let anu = await conn.downloadAndSaveMediaMessage(quot.message.imageMessage);
-                return conn.sendMessage(from, { image: { url: anu }, caption: cap }, { quoted: mek });
+                return conn.sendMessage(from, {
+                    image: { url: anu },
+                    caption: cap + "\n\n🔓 *تم الاسترجاع بواسطة طرزان الواقدي*"
+                }, { quoted: mek });
             }
+
             if (quot.message.videoMessage) {
-                let cap = quot.message.videoMessage.caption;
+                let cap = quot.message.videoMessage.caption || '';
                 let anu = await conn.downloadAndSaveMediaMessage(quot.message.videoMessage);
-                return conn.sendMessage(from, { video: { url: anu }, caption: cap }, { quoted: mek });
+                return conn.sendMessage(from, {
+                    video: { url: anu },
+                    caption: cap + "\n\n🔓 *تم الاسترجاع بواسطة طرزان الواقدي*"
+                }, { quoted: mek });
             }
+
             if (quot.message.audioMessage) {
                 let anu = await conn.downloadAndSaveMediaMessage(quot.message.audioMessage);
-                return conn.sendMessage(from, { audio: { url: anu } }, { quoted: mek });
+                return conn.sendMessage(from, {
+                    audio: { url: anu }
+                }, { quoted: mek });
             }
         }
 
-        // If there is no quoted message or it's not a ViewOnce message
-        if (!m.quoted) return reply("Please reply to a ViewOnce message.");
+        // إذا لم تكن الرسالة من نوع ViewOnce
+        if (!m.quoted) return reply("❗ *يرجى الرد على رسالة مشاهدة لمرة واحدة.*");
+
         if (m.quoted.mtype === "viewOnceMessage") {
             if (m.quoted.message.imageMessage) {
-                let cap = m.quoted.message.imageMessage.caption;
+                let cap = m.quoted.message.imageMessage.caption || '';
                 let anu = await conn.downloadAndSaveMediaMessage(m.quoted.message.imageMessage);
-                return conn.sendMessage(from, { image: { url: anu }, caption: cap }, { quoted: mek });
-            }
-            else if (m.quoted.message.videoMessage) {
-                let cap = m.quoted.message.videoMessage.caption;
+                return conn.sendMessage(from, {
+                    image: { url: anu },
+                    caption: cap + "\n\n🔓 *تم الاسترجاع بواسطة طرزان الواقدي*"
+                }, { quoted: mek });
+            } else if (m.quoted.message.videoMessage) {
+                let cap = m.quoted.message.videoMessage.caption || '';
                 let anu = await conn.downloadAndSaveMediaMessage(m.quoted.message.videoMessage);
-                return conn.sendMessage(from, { video: { url: anu }, caption: cap }, { quoted: mek });
+                return conn.sendMessage(from, {
+                    video: { url: anu },
+                    caption: cap + "\n\n🔓 *تم الاسترجاع بواسطة طرزان الواقدي*"
+                }, { quoted: mek });
             }
         } else if (m.quoted.message.audioMessage) {
             let anu = await conn.downloadAndSaveMediaMessage(m.quoted.message.audioMessage);
-            return conn.sendMessage(from, { audio: { url: anu } }, { quoted: mek });
+            return conn.sendMessage(from, {
+                audio: { url: anu }
+            }, { quoted: mek });
         } else {
-            return reply("This is not a ViewOnce message.");
+            return reply("❌ *الرسالة التي تم الرد عليها ليست من نوع مشاهدة لمرة واحدة.*");
         }
     } catch (e) {
-        console.log("Error:", e);
-        reply("An error occurred while fetching the ViewOnce message.");
+        console.log("خطأ:", e);
+        reply("⚠️ *حدث خطأ أثناء استرجاع الرسالة.*");
     }
 });
-
-// if you want use the codes give me credit on your channel and repo in this file and my all files 
