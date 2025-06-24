@@ -1,6 +1,6 @@
 const { malvin } = require("../malvin"); const moment = require("moment-timezone");
 
-malvin({ pattern: "menu3", desc: "عرض قائمة الأوامر الكاملة مع زر الانضمام للقناة", category: "الواجهة", filename: __filename }, async (conn, mek, m, { from, pushName, reply, prefix }) => { try { const now = moment().tz("Asia/Riyadh"); const time = now.format("HH:mm:ss"); const date = now.format("dddd, MMMM Do YYYY"); const uptime = process.uptime(); const hours = Math.floor(uptime / 3600); const minutes = Math.floor((uptime % 3600) / 60); const seconds = Math.floor(uptime % 60); const uptimeFormatted = ${hours} ساعة، ${minutes} دقيقة، ${seconds} ثانية;
+malvin( { pattern: "menu3", desc: "عرض قائمة الأوامر", category: "الواجهة", filename: __filename, }, async (conn, mek, m, { from, pushName, prefix, reply }) => { try { const now = moment().tz("Asia/Riyadh"); const time = now.format("HH:mm:ss"); const date = now.format("dddd, MMMM Do YYYY"); const uptime = process.uptime(); const hours = Math.floor(uptime / 3600); const minutes = Math.floor((uptime % 3600) / 60); const seconds = Math.floor(uptime % 60); const uptimeFormatted = ${hours} ساعة، ${minutes} دقيقة، ${seconds} ثانية;
 
 const menuText = `
 
@@ -20,26 +20,30 @@ const menuText = `
 
 ┌──『 🪄 sᴇᴛᴛɪɴɢs ᴄᴍᴅs 🪄 』 │ ⬡ antidelete │ ⬡ admin-events │ ⬡ faketyping │ ⬡ fakerecording │ ⬡ welcome │ ⬡ mode │ ⬡ auto-typing │ ⬡ mention-reply │ ⬡ always-online │ ⬡ auto-recording │ ⬡ auto-seen │ ⬡ status-react │ ⬡ read-message │ ⬡ auto-voice │ ⬡ anti-bad │ ⬡ auto-sticker │ ⬡ auto-reply │ ⬡ auto-react │ ⬡ status-reply │ ⬡ setvar │ ⬡ heartreact │ ⬡ setprefix └────────────✦
 
-┌──『 🕵️‍♂️ ᴏᴛʜᴇʀ ᴄᴍᴅs 🕵️‍♂️ 』 │ ⬡ createapi │ ⬡ weather │ ⬡ define │ ⬡ gpass │ ⬡ imgscan │ ⬡ srepo │ ⬡ npm │ ⬡ ss │ ⬡ countryinfo │ ⬡ binary │ ⬡ dbinary │ ⬡ base64 │ ⬡ unbase64 │ ⬡ urlencode │ ⬡ urldecode │ ⬡ calculate │ ⬡ tempnum │ ⬡ otpbox │ ⬡ tempmail │ ⬡ checkmail │ ⬡ wikipedia │ ⬡ wastalk │ ⬡ caption │ ⬡ trt │ ⬡ tiktokstalk │ ⬡ xstalk │ ⬡ vcc │ ⬡ weather │ ⬡ ytstalk └─────────────✦
+┌──『 🕵️‍♂️ ᴏᴛʜᴇʀ ᴄᴍᴅs 🕵️‍♂️ 』 │ ⬡ createapi │ ⬡ weather │ ⬡ define │ ⬡ gpass │ ⬡ imgscan │ ⬡ srepo │ ⬡ npm │ ⬡ ss │ ⬡ countryinfo │ ⬡ binary │ ⬡ dbinary │ ⬡ base64 │ ⬡ unbase64 │ ⬡ urlencode │ ⬡ urldecode │ ⬡ calculate │ ⬡ tempnum │ ⬡ otpbox │ ⬡ tempmail │ ⬡ checkmail │ ⬡ wikipedia │ ⬡ wastalk │ ⬡ caption │ ⬡ trt │ ⬡ tiktokstalk │ ⬡ xstalk │ ⬡ vcc │ ⬡ weather │ ⬡ ytstalk └────────────✦
 
-> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ طرزان الواقدي`
+> © ᴘᴏᴡᴇʀᴇᴅ ʙʏ طرزان الواقدي `;
 
 
 
 await conn.sendMessage(from, {
-  text: menuText,
-  contextInfo: {
-    externalAdReply: {
-      title: "اضغط للانضمام إلى القناة",
-      body: "قناة طرزان الواقدي",
-      mediaType: 1,
-      renderLargerThumbnail: true,
-      showAdAttribution: true,
-      sourceUrl: `https://whatsapp.com/channel/120363418716672821`,
-      thumbnailUrl: "https://i.imgur.com/FnpJtov.jpg"
-    }
-  }
-});
+    text: menuText,
+    contextInfo: {
+      externalAdReply: {
+        title: "اضغط للانضمام إلى القناة",
+        body: "قناة طرزان الواقدي",
+        mediaType: 1,
+        renderLargerThumbnail: true,
+        showAdAttribution: true,
+        sourceUrl: `https://whatsapp.com/channel/120363418716672821`,
+        thumbnailUrl: "https://i.imgur.com/FnpJtov.jpg",
+      },
+    },
+  });
+} catch (e) {
+  console.error(e);
+  reply("❌ حدث خطأ أثناء عرض القائمة.");
+}
 
-} catch (e) { console.error(e); reply("❌ حدث خطأ أثناء عرض القائمة."); } });
+} );
 
