@@ -52,8 +52,8 @@ malvin({
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '120363402507750390@newsletter',
-          newsletterName: '『 طرزان الواقدي 』',
+          newsletterJid: '0029VbAoLCmEFeXrNmu9yh0o@newsletter',
+          newsletterName: 'قناة بوت طرزان الواقدي 🦑🥀',
           serverMessageId: 143
         }
       }
