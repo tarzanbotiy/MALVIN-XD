@@ -1,7 +1,7 @@
 const axios = require("axios");
 const { malvin } = require("../malvin");
 
-// Helper function to convert a country ISO code to its flag emoji
+// دالة مساعده لتحويل رمز الدولة إلى علم
 function getFlagEmoji(countryCode) {
   if (!countryCode) return "";
   return countryCode
@@ -13,38 +13,39 @@ function getFlagEmoji(countryCode) {
 
 malvin({
     pattern: "check",
-    desc: "Checks the country calling code and returns the corresponding country name(s) with flag",
-    category: "utility",
+    desc: "تحقق من رمز الدولة الدولي وأظهر اسم الدولة والعلم",
+    category: "أدوات",
     filename: __filename
 }, async (conn, mek, m, { from, args, reply }) => {
     try {
         let code = args[0];
         if (!code) {
-            return reply("❌ Please provide a country code. Example: `.check 263`");
+            return reply("❌ الرجاء إدخال رمز دولة. مثال: `.check 966`");
         }
 
-        // Remove any '+' signs from the code
+        // إزالة أي علامات '+' إن وُجدت
         code = code.replace(/\+/g, '');
 
-        // Fetch all countries using the REST Countries v2 API
+        // جلب بيانات الدول من API
         const url = "https://restcountries.com/v2/all";
         const { data } = await axios.get(url);
 
-        // Filter countries whose callingCodes include the given code
+        // البحث عن الدول التي تحتوي على رمز الاتصال المدخل
         const matchingCountries = data.filter(country =>
             country.callingCodes && country.callingCodes.includes(code)
         );
 
         if (matchingCountries.length > 0) {
             const countryNames = matchingCountries
-                .map(country => `${getFlagEmoji(country.alpha2Code)} ${country.name}`)
+                .map(country => `${getFlagEmoji(country.alpha2Code)} ${country.translations.ar || country.name}`)
                 .join("\n");
-            reply(`✅ *Country Code*: ${code}\n🌍 *Countries*:\n${countryNames}`);
+
+            reply(`✅ *رمز الدولة:* +${code}\n🌍 *الدولة/الدول:*\n${countryNames}\n\n🔖 تم بواسطة: *طرزان الواقدي*`);
         } else {
-            reply(`❌ No country found for the code ${code}.`);
+            reply(`❌ لا توجد دولة مطابقة للرمز: +${code}`);
         }
     } catch (error) {
         console.error(error);
-        reply("❌ An error occurred while checking the country code.");
+        reply("❌ حدث خطأ أثناء التحقق من رمز الدولة.");
     }
 });
