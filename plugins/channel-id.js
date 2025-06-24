@@ -4,17 +4,17 @@ malvin({
   pattern: "newsletter",
   alias: ["cjid", "id"],
   react: "📡",
-  desc: "Get WhatsApp Channel info from link",
-  category: "whatsapp",
+  desc: "جلب معلومات قناة واتساب من الرابط",
+  category: "واتساب",
   filename: __filename
 }, async (conn, mek, m, { from, args, q, reply }) => {
   try {
     if (!q)
-      return reply(`❎ *Please provide a WhatsApp Channel link.*\n\n📌 *Example:*\n.newsletter https://whatsapp.com/channel/xxxxxxxxxx`);
+      return reply(`❗ *يرجى إدخال رابط قناة واتساب.*\n\n📌 *مثال:*\n.newsletter https://whatsapp.com/channel/xxxxxxxxxx`);
 
     const match = q.match(/whatsapp\.com\/channel\/([\w-]+)/);
     if (!match)
-      return reply(`⚠️ *Invalid channel link!*\n\nMake sure it looks like:\nhttps://whatsapp.com/channel/xxxxxxxxx`);
+      return reply(`⚠️ *الرابط غير صالح!*\nتأكد أن الرابط يبدو هكذا:\nhttps://whatsapp.com/channel/xxxxxxxxx`);
 
     const inviteId = match[1];
     let metadata;
@@ -22,21 +22,21 @@ malvin({
     try {
       metadata = await conn.newsletterMetadata("invite", inviteId);
     } catch {
-      return reply("🚫 *Failed to fetch channel info.*\nDouble-check the link and try again.");
+      return reply("🚫 *فشل في جلب معلومات القناة.*\nتحقق من الرابط وحاول مرة أخرى.");
     }
 
     if (!metadata?.id)
-      return reply("❌ *Channel not found or inaccessible.*");
+      return reply("❌ *القناة غير موجودة أو لا يمكن الوصول إليها.*");
 
     const infoText = `
-╭─❍『 📡 ᴄʜᴀɴɴᴇʟ ɪɴꜰᴏ 』❍─
+╭──❖『 📡 معلومات القناة 』❖──
 │
-│ 🔖 *ID:* ${metadata.id}
-│ 🗂️ *Name:* ${metadata.name}
-│ 👥 *Followers:* ${metadata.subscribers?.toLocaleString() || "N/A"}
-│ 🗓️ *Created:* ${metadata.creation_time ? new Date(metadata.creation_time * 1000).toLocaleString("id-ID") : "Unknown"}
+│ 🆔 *المعرف:* ${metadata.id}
+│ 📛 *الاسم:* ${metadata.name}
+│ 👥 *عدد المتابعين:* ${metadata.subscribers?.toLocaleString() || "غير متوفر"}
+│ 🗓️ *تاريخ الإنشاء:* ${metadata.creation_time ? new Date(metadata.creation_time * 1000).toLocaleString("ar-EG") : "غير معروف"}
 │
-╰─⭓ ᴘᴏᴡᴇʀᴇᴅ ʙʏ *ᴍᴀʟᴠɪɴ xᴅ*
+╰─⌯ تم بواسطة: *طرزان الواقدي*
 `;
 
     if (metadata.preview) {
@@ -49,7 +49,7 @@ malvin({
     }
 
   } catch (err) {
-    console.error("❌ Newsletter Error:", err);
-    reply("⚠️ *An unexpected error occurred while fetching the channel info.*");
+    console.error("❌ خطأ في جلب معلومات القناة:", err);
+    reply("⚠️ *حدث خطأ غير متوقع أثناء جلب معلومات القناة.*");
   }
 });
