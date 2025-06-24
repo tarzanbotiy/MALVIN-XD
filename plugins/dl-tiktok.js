@@ -52,7 +52,7 @@ malvin({
         forwardingScore: 999,
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
-          newsletterJid: '0029VbAoLCmEFeXrNmu9yh0o@newsletter',
+          newsletterJid: '120363418716672821@newsletter',
           newsletterName: '『 طرزان الواقدي 』',
           serverMessageId: 143
         }
