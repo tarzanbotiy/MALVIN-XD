@@ -53,7 +53,7 @@ malvin({
         isForwarded: true,
         forwardedNewsletterMessageInfo: {
           newsletterJid: '0029VbAoLCmEFeXrNmu9yh0o@newsletter',
-          newsletterName: 'قناة بوت طرزان الواقدي 🦑🥀',
+          newsletterName: '『 طرزان الواقدي 』',
           serverMessageId: 143
         }
       }
