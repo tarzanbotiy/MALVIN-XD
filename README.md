@@ -6,7 +6,7 @@
 </p>
 
 <p align="center">
-  <img src="[https://files.catbox.moe/qumhu4.jpg](https://a.top4top.io/p_3463hqpiz0.jpg)" />
+  <img src="[https://files.catbox.moe/qumhu4.jpg](https://files.catbox.moe/6jsute.jpg)" />
 </p>
 
 <!-- 📊 STATS & HERO ANIMATION (Updated Colors) -->
