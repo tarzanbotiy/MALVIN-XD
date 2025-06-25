@@ -5,8 +5,8 @@ malvin({
     pattern: "ping",
     alias: ["speed", "pong", "ping2", "ping3"],
     use: '.ping',
-    desc: "Check bot's response time.",
-    category: "main",
+    desc: "تحقق من سرعة استجابة البوت.",
+    category: "الرئيسية",
     react: "⚡",
     filename: __filename
 }, async (conn, mek, m, { from, sender, reply }) => {
@@ -16,43 +16,43 @@ malvin({
         const emojis = ['🔥', '⚡', '🚀', '💨', '🎯', '🎉', '🌟', '💥', '🕐', '🔹', '💎', '🏆', '🎶', '🌠', '🌀', '🔱', '🛡️', '✨'];
         const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
 
-        // React instantly with a random emoji
+        // تفاعل مباشر مع إيموجي عشوائي
         await conn.sendMessage(from, {
             react: { text: randomEmoji, key: mek.key }
         });
 
         const ping = Date.now() - startTime;
 
-        // Speed categorization
-        let badge = '🐢 Slow', color = '🔴';
+        // تصنيف السرعة
+        let badge = '🐢 بطيء', color = '🔴';
         if (ping <= 150) {
-            badge = '🚀 Super Fast';
+            badge = '🚀 سريع جدًا';
             color = '🟢';
         } else if (ping <= 300) {
-            badge = '⚡ Fast';
+            badge = '⚡ سريع';
             color = '🟡';
         } else if (ping <= 600) {
-            badge = '⚠️ Medium';
+            badge = '⚠️ متوسط';
             color = '🟠';
         }
 
-        // Final response
+        // الرد النهائي
         await conn.sendMessage(from, {
-            text: `> *ᴍᴀʟᴠɪɴ-xᴅ ʀᴇsᴘᴏɴsᴇ: ${ping} ms ${randomEmoji}*\n> *sᴛᴀᴛᴜs: ${color} ${badge}*\n> *ᴠᴇʀsɪᴏɴ: ${config.version}*`,
+            text: `> *الاستجابة: ${ping} مللي ثانية ${randomEmoji}*\n> *الحالة: ${color} ${badge}*\n> *الإصدار: ${config.version}*\n\n👑 تم بواسطة: *طرزان الواقدي*`,
             contextInfo: {
                 mentionedJid: [sender],
                 forwardingScore: 999,
                 isForwarded: true,
                 forwardedNewsletterMessageInfo: {
                     newsletterJid: '120363402507750390@newsletter',
-                    newsletterName: "Malvin King Tech",
-                    serverMessageId: 143
+                    newsletterName: "Tarzan Alwaqdiy",
+                    serverMessageId: 999
                 }
             }
         }, { quoted: mek });
 
     } catch (e) {
-        console.error("❌ Error in ping command:", e);
-        reply(`⚠️ Error: ${e.message}`);
+        console.error("❌ خطأ في أمر ping:", e);
+        reply(`⚠️ حدث خطأ: ${e.message}`);
     }
 });
