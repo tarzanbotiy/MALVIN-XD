@@ -320,7 +320,7 @@ malvin({
           renderLargerThumbnail: true,
           showAdAttribution: true,
           sourceUrl: `https://whatsapp.com/channel/120363418716672821`,
-          thumbnailUrl: "https://i.imgur.com/FnpJtov.jpg"
+          thumbnailUrl: "https://files.catbox.moe/6jsute.jpg"
         }
       }
     });
