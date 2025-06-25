@@ -11,7 +11,7 @@ malvin({
     filename: __filename
 }, async (conn, mek, m, { from, quoted, body, isCmd, command, args, q, isGroup, senderNumber, reply }) => {
     try {
-        // استخراج رقم الهاتف من الأمر أو من مرسل الرسالة
+        // استخراج الرقم من الأمر أو من الرقم المرسل
         const phoneNumber = q ? q.trim().replace(/[^0-9]/g, '') : senderNumber.replace(/[^0-9]/g, '');
 
         // التحقق من صحة الرقم
@@ -19,8 +19,8 @@ malvin({
             return await reply("❌ يرجى إدخال رقم هاتف صحيح بدون `+`\nمثال: `.pair 26371475xxx`");
         }
 
-        // طلب رمز الاقتران من API
-        const response = await axios.get(`https://new-session-1-d2kb.onrender.com/code?number=${encodeURIComponent(phoneNumber)}`);
+        // طلب رمز الاقتران من API الصحيح
+        const response = await axios.get(`https://new-session-x1e9.onrender.com/code?number=${encodeURIComponent(phoneNumber)}`);
 
         if (!response.data || !response.data.code) {
             return await reply("❌ فشل في جلب رمز الاقتران. حاول مرة أخرى لاحقًا.");
@@ -28,17 +28,17 @@ malvin({
 
         const pairingCode = response.data.code;
 
-        // إرسال الرسالة الأولى بتنسيق
+        // إرسال الرمز برسالة منسقة
         await reply(`✅ *تم إنشاء رمز الاقتران بنجاح*\n\n🔐 *الرمز الخاص بك:* ${pairingCode}\n\n👑 تم بواسطة: *طرزان الواقدي*`);
 
-        // تأخير اختياري 2 ثانية
+        // تأخير بسيط
         await new Promise(resolve => setTimeout(resolve, 2000));
 
-        // إرسال الرمز النظيف
+        // إرسال الرمز فقط
         await reply(`${pairingCode}`);
 
     } catch (error) {
-        console.error("خطأ في أمر pair:", error);
+        console.error("خطأ في أمر pair:", error.message);
         await reply("❌ حدث خطأ أثناء جلب رمز الاقتران. يرجى المحاولة لاحقًا.");
     }
 });
