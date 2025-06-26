@@ -1,10 +1,7 @@
 const { malvin } = require('../malvin');
 const { ytsearch } = require('@dark-yasiya/yt-dl.js');
 const fetch = require("node-fetch");
-const path = require('path');
-const ffmpeg = require('fluent-ffmpeg');
 
-// ✅ أمر تحميل فيديو يوتيوب (MP4)
 malvin({
     pattern: "video",
     alias: ["ytvideo", "mp4"],
@@ -25,23 +22,17 @@ malvin({
         const { title, thumbnail, timestamp, url } = search.results[0];
         const videoUrl = encodeURIComponent(url);
 
-        // المحاولة الأولى: API الأساسي
-        const api1 = `https://apis-keith.vercel.app/download/dlmp4?url=${videoUrl}`;
-        const api2 = `https://apis.davidcyriltech.my.id/download/ytmp4?url=${videoUrl}`;
+        // استخدم فقط API واحد موثوق
+        const api = `https://apis-keith.vercel.app/download/dlmp4?url=${videoUrl}`;
 
-        let data;
+        const res = await fetch(api);
+        const data = await res.json();
 
-        try {
-            const res1 = await fetch(api1);
-            data = await res1.json();
-            if (!data?.status || !data?.result?.downloadUrl) throw new Error("فشل API الأساسي");
-        } catch {
-            const res2 = await fetch(api2);
-            data = await res2.json();
-            if (!data?.success || !data?.result?.download_url) throw new Error("فشل تحميل الفيديو من جميع المصادر");
+        if (!data?.status || !data?.result?.downloadUrl) {
+            return reply("❌ فشل تحميل الفيديو من المصدر الأساسي.");
         }
 
-        const downloadUrl = data.result.downloadUrl || data.result.download_url;
+        const downloadUrl = data.result.downloadUrl;
 
         // إرسال صورة الفيديو وتفاصيله
         await conn.sendMessage(from, {
