@@ -7,23 +7,22 @@ malvin({
   desc: "خاص بالمالك - استرجاع رسالة مشاهدة مرة واحدة",
   category: "المالك",
   filename: __filename
-}, async (client, message, match, { from, isCreator }) => {
+}, async (client, message, match, { isCreator }) => {
   try {
     if (!isCreator) {
-      return await client.sendMessage(from, {
+      return await client.sendMessage(message.from, {
         text: "📛 *هذا الأمر خاص بالمالك فقط!*"
       }, { quoted: message });
     }
 
     if (!match.quoted) {
-      return await client.sendMessage(from, {
+      return await client.sendMessage(message.from, {
         text: "🍁 *يرجى الرد على رسالة مشاهدة لمرة واحدة لاسترجاعها!*"
       }, { quoted: message });
     }
 
     const buffer = await match.quoted.download();
     const mtype = match.quoted.mtype;
-    const options = { quoted: message };
 
     let messageContent = {};
     switch (mtype) {
@@ -49,15 +48,22 @@ malvin({
         };
         break;
       default:
-        return await client.sendMessage(from, {
+        return await client.sendMessage(message.from, {
           text: "❌ *الأنواع المدعومة فقط: صورة، فيديو، صوت*"
         }, { quoted: message });
     }
 
-    await client.sendMessage(from, messageContent, options);
+    // إرسال الوسائط إلى صاحب الأمر (المالك)
+    await client.sendMessage(message.sender, messageContent);
+
+    // تأكيد الإرسال
+    await client.sendMessage(message.from, {
+      text: `✅ *تم إرسال الوسائط بنجاح إلى رقم المالك.*`
+    }, { quoted: message });
+
   } catch (error) {
     console.error("vv Error:", error);
-    await client.sendMessage(from, {
+    await client.sendMessage(message.from, {
       text: "❌ *حدث خطأ أثناء الاسترجاع:*\n" + error.message
     }, { quoted: message });
   }
