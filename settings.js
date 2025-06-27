@@ -1,125 +1,128 @@
-
 const fs = require('fs');
 if (fs.existsSync('config.env')) require('dotenv').config({ path: './config.env' });
 
 function convertToBool(text, fault = 'true') {
     return text === fault ? true : false;
 }
+
 module.exports = {
-SESSION_ID: process.env.SESSION_ID || "malvin~c682kJDY#ZY8S8naCc3PoVUKAXz1Vjwj0145H57keSAzCPiTFbdE",
-// add your Session Id make sure it starts with malvin~
-PREFIX: process.env.PREFIX || ".",
-// add your prifix for bot   
-BOT_NAME: process.env.BOT_NAME || "ᴍᴀʟᴠɪɴ-xᴅ",
-// add bot name here for menu
-MODE: process.env.MODE || "public",
-// make bot public-private-inbox-group 
+    SESSION_ID: process.env.SESSION_ID || "malvin~c682kJDY#ZY8S8naCc3PoVUKAXz1Vjwj0145H57keSAzCPiTFbdE",
+    // معرف الجلسة - تأكد أن يبدأ بـ malvin~
 
-LINK_WHITELIST: "youtube.com,github.com",
+    PREFIX: process.env.PREFIX || ".",
+    // بادئة الأوامر للبوت
 
-    LINK_WARN_LIMIT: 3, // Number of warnings before action
+    BOT_NAME: process.env.BOT_NAME || "طرزان الواقدي",
+    // اسم البوت في القوائم
 
-    LINK_ACTION: "kick", // "kick", "mute", or "none"
+    MODE: process.env.MODE || "public",
+    // وضع البوت: عام public أو خاص private أو دردشة خاصة inbox أو مجموعات فقط group
 
-        AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",
-// make true or false status auto seen
+    LINK_WHITELIST: "youtube.com,github.com",
+    // روابط مسموح بها عند تفعيل مانع الروابط
 
-        AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "false",
-// make true if you want auto reply on status 
+    LINK_WARN_LIMIT: 3,
+    // عدد التحذيرات قبل تنفيذ الإجراء
 
-        AUTO_STATUS_REACT: process.env.AUTO_STATUS_REACT || "true",
-// make true if you want auto reply on status 
+    LINK_ACTION: "kick",
+    // الإجراء عند تكرار الروابط: "kick" للطرد، "mute" للكتم، "none" بدون إجراء
 
-        AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*Just seen ur status 😆*",
-// set the auto reply massage on status reply  
+    AUTO_STATUS_SEEN: process.env.AUTO_STATUS_SEEN || "true",
+    // تفعيل مشاهدة الحالات تلقائيًا
 
+    AUTO_STATUS_REPLY: process.env.AUTO_STATUS_REPLY || "false",
+    // تفعيل الرد التلقائي على الحالات
 
-       WELCOME: process.env.WELCOME || "true",
-// true if want welcome and goodbye msg in groups 
-   
-       ADMIN_EVENTS: process.env.ADMIN_EVENTS || "false",
-// make true to know who dismiss or promoted a member in group
+    AUTO_STATUS_REACT: process.env.AUTO_STATUS_REACT || "true",
+    // تفعيل التفاعل التلقائي مع الحالات
 
-      ANTI_LINK: process.env.ANTI_LINK || "true",
-// make anti link true,false for groups 
+    AUTO_STATUS_MSG: process.env.AUTO_STATUS_MSG || "*تمت مشاهدة حالتك 👀*",
+    // نص الرد التلقائي عند مشاهدة الحالة
 
-      MENTION_REPLY: process.env.MENTION_REPLY || "false",
-// make true if want auto voice reply if someone menetion you 
+    WELCOME: process.env.WELCOME || "true",
+    // تفعيل رسائل الترحيب والمغادرة في المجموعات
 
-     MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "https://files.catbox.moe/qumhu4.jpg",
-// add custom menu and mention reply image url
+    ADMIN_EVENTS: process.env.ADMIN_EVENTS || "false",
+    // إشعار بترقية أو إزالة المشرفين في المجموعات
 
-       ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/xshsmk",
-// add img for alive msg
+    ANTI_LINK: process.env.ANTI_LINK || "true",
+    // تفعيل مانع الروابط في المجموعات
 
-        LIVE_MSG: process.env.LIVE_MSG || "> ʙᴏᴛ ɪs sᴘᴀʀᴋɪɴɢ ᴀᴄᴛɪᴠᴇ ᴀɴᴅ ᴀʟɪᴠᴇ\n\n\nᴋᴇᴇᴘ ᴜsɪɴɢ ✦ᴍᴀʟᴠɪɴ xᴅ✦ ғʀᴏᴍ ᴍᴀʟᴠɪɴ ᴛᴇᴄʜ ɪɴᴄ⚡\n\n\n*© ᴡʜᴀᴛꜱᴀᴘᴘ ʙᴏᴛ - ᴍᴅ\n\n> ɢɪᴛʜᴜʙ :* github.com/XdKing2/MALVIN-XD",
-// add alive msg here 
+    MENTION_REPLY: process.env.MENTION_REPLY || "false",
+    // تفعيل الرد الصوتي عند منشن اسمك
 
+    MENU_IMAGE_URL: process.env.MENU_IMAGE_URL || "https://files.catbox.moe/qumhu4.jpg",
+    // رابط صورة القائمة
 
-        STICKER_NAME: process.env.STICKER_NAME || "ᴍᴀʟᴠɪɴ-xᴅ",
-// type sticker pack name 
+    ALIVE_IMG: process.env.ALIVE_IMG || "https://files.catbox.moe/xshsmk",
+    // رابط صورة alive
 
-        CUSTOM_REACT: process.env.CUSTOM_REACT || "false",
-// make this true for custum emoji react  
-  
-      CUSTOM_REACT_EMOJIS: process.env.CUSTOM_REACT_EMOJIS || "💝,💖,💗,❤️‍🩹,❤️,🧡,💛,💚,💙,💜,🤎,🖤,🤍",
-// chose custom react emojis by yourself 
+    LIVE_MSG: process.env.LIVE_MSG || "> البوت يعمل الآن بكفاءة ⚡\n\nاستمر في استخدام ✦طرزان الواقدي✦ بوت واتساب المطور\n\n*© بواسطة طرزان\n> GitHub:* github.com/tarzanalwaqdiy1",
+    // نص رسالة alive
 
-          DELETE_LINKS: process.env.DELETE_LINKS || "false",
-// automatic delete links witho remove member 
+    STICKER_NAME: process.env.STICKER_NAME || "طرزان ستيكر",
+    // اسم حزمة الملصقات
 
-          OWNER_NUMBER: process.env.OWNER_NUMBER || "263776388689",
-// add your bot owner number
+    CUSTOM_REACT: process.env.CUSTOM_REACT || "false",
+    // تفعيل التفاعل المخصص
 
-OWNER_NAME: process.env.OWNER_NAME || "ᴍᴀʟᴠɪɴ ᴋɪɴɢ",
-// add bot owner name
+    CUSTOM_REACT_EMOJIS: process.env.CUSTOM_REACT_EMOJIS || "🔥,💖,👑,💔,🌹,😈",
+    // الرموز التعبيرية للتفاعل المخصص
 
-              DESCRIPTION: process.env.DESCRIPTION || "*© ᴘᴏᴡᴇʀᴇᴅ ʙʏ ᴍᴀʟᴠɪɴ ᴋɪɴɢ*",
-// add bot owner name    
+    DELETE_LINKS: process.env.DELETE_LINKS || "false",
+    // حذف الروابط تلقائيًا بدون طرد
 
-        READ_MESSAGE: process.env.READ_MESSAGE || "false",
-// Turn true or false for automatic read msgs
+    OWNER_NUMBER: process.env.OWNER_NUMBER || "966590117904",
+    // رقم صاحب البوت
 
-                 AUTO_REACT: process.env.AUTO_REACT || "false",
-// make this true or false for auto react on all msgs
-                ANTI_BAD: process.env.ANTI_BAD || "false",
-// false or true for anti bad words  
+    OWNER_NAME: process.env.OWNER_NAME || "طرزان الواقدي",
+    // اسم صاحب البوت
 
-            ANTI_LINK_KICK: process.env.ANTI_LINK_KICK || "false",
-// make anti link true,false for groups 
+    DESCRIPTION: process.env.DESCRIPTION || "*© مطور بواسطة طرزان الواقدي*",
+    // وصف البوت
 
-        AUTO_STICKER: process.env.AUTO_STICKER || "false",
-// make true for automatic stickers 
+    READ_MESSAGE: process.env.READ_MESSAGE || "false",
+    // تفعيل قراءة الرسائل تلقائيًا
 
-              AUTO_REPLY: process.env.AUTO_REPLY || "false",
-// make true or false automatic text reply 
+    AUTO_REACT: process.env.AUTO_REACT || "false",
+    // تفعيل التفاعل التلقائي مع جميع الرسائل
 
-        ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
-// maks true for always online 
+    ANTI_BAD: process.env.ANTI_BAD || "false",
+    // تفعيل منع الكلمات السيئة
 
-         PUBLIC_MODE: process.env.PUBLIC_MODE || "false",
-// make false if want private mod
+    ANTI_LINK_KICK: process.env.ANTI_LINK_KICK || "false",
+    // طرد من يرسل روابط في الجروب
 
-        AUTO_TYPING: process.env.AUTO_TYPING || "false",
-// true for automatic show typing 
-  
-   READ_CMD: process.env.READ_CMD || "false",
-// true if want mark commands as read 
+    AUTO_STICKER: process.env.AUTO_STICKER || "false",
+    // إرسال ملصقات تلقائيًا
 
-     DEV: process.env.DEV || "263776388689",
-//replace with your whatsapp number    
-    
+    AUTO_REPLY: process.env.AUTO_REPLY || "false",
+    // الرد التلقائي بالنصوص
+
+    ALWAYS_ONLINE: process.env.ALWAYS_ONLINE || "false",
+    // إبقاء البوت دائمًا متصل
+
+    PUBLIC_MODE: process.env.PUBLIC_MODE || "false",
+    // وضع البوت: عام (true) أو خاص (false)
+
+    AUTO_TYPING: process.env.AUTO_TYPING || "false",
+    // تفعيل عرض "يكتب الآن..." تلقائيًا
+
+    READ_CMD: process.env.READ_CMD || "false",
+    // تعليم الرسائل المرسلة بالأوامر كمقروءة
+
+    DEV: process.env.DEV || "966590117904",
+    // رقم مطور البوت
+
     ANTI_VV: process.env.ANTI_VV || "true",
-// true for anti once view 
+    // منع الرسائل أو الصور العرض لمرة واحدة
 
-      ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "inbox", 
-// change it to 'inbox/ same if you want to resend deleted message in same chat 
+    ANTI_DEL_PATH: process.env.ANTI_DEL_PATH || "inbox",
+    // مكان إعادة إرسال الرسائل المحذوفة: "inbox" أو "same"
 
-      AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
-// make it true for auto recoding 
+    AUTO_RECORDING: process.env.AUTO_RECORDING || "false",
+    // تفعيل عرض "يسجل الآن..." تلقائيًا
 
-version: process.env.version || "0.0.6",
-
+    version: process.env.version || "0.0.6",
+    // إصدار البوت
 };
-
-
